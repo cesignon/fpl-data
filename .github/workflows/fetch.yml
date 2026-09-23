@@ -1,0 +1,39 @@
+name: Snapshot FPL API
+
+on:
+  schedule:
+    # Every 6 hours (UTC). Prices update ~01:30 UTC, so the 06:00 run catches them.
+    - cron: "0 0,6,12,18 * * *"
+  workflow_dispatch:   # adds a "Run workflow" button in the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch snapshot
+        run: python fetch.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "fpl-bot"
+          git config user.email "fpl-bot@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "snapshot $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
