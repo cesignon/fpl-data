@@ -1,1 +1,1 @@
-{"fetched_at_utc":"2026-10-17T10:08:48Z","current_gw":6,"next_gw":7,"team_id":7344682,"league_id":960192,"failures":["entry/7344682/: HTTP Error 503: Service Unavailable","entry/7344682/history/: HTTP Error 503: Service Unavailable","leagues-classic/960192/standings/?page_standings=1: HTTP Error 503: Service Unavailable"]}
+{"fetched_at_utc":"2026-10-17T14:56:20Z","current_gw":7,"next_gw":8,"team_id":7344682,"league_id":960192,"failures":[]}
